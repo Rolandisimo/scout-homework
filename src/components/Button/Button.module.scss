@@ -1,0 +1,30 @@
+@import "../../consts/styles.scss";
+
+.container {
+  border-radius: 100px;
+  color: #fff;
+  text-transform: capitalize;
+  font-family: "Quicksand";
+  box-shadow: $dropShadowButtons;
+  border: none;
+  cursor: pointer;
+  outline: none;
+  transition: .2s;
+  white-space: nowrap;
+  padding: 0.5em 1.9em;
+  font-size: 1.2em;
+}
+
+.neutral {
+  background-color: $neutralColor;
+  color: $darkColor;
+
+  &:hover {
+    background-color: $neutralHoverColor;
+  }
+}
+
+.disabled {
+  opacity: .5;
+  cursor: default;
+}
