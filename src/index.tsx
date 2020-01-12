@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import { Provider } from "react-redux";
 import { ReducersMapObject, combineReducers, Store, createStore } from "redux";
 
-import { AppConnected } from './App';
+import { App } from './App';
 import { State } from "./ducks/state";
 import { exchangeRatesReducer } from "./components/ExchangeRate/ducks/reducer";
 
@@ -21,7 +21,7 @@ const store: Store<State> = createStore(
 
 ReactDOM.render(
   <Provider store={store}>
-    <AppConnected />
+    <App />
   </Provider>,
   document.getElementById('root'),
 );
