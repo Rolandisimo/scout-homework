@@ -1,4 +1,4 @@
-import React, { Suspense, useCallback } from 'react';
+import React, { useCallback } from 'react';
 import { connect } from "react-redux";
 import debounce from "lodash.debounce";
 import { Button } from "../Button/Button";
@@ -8,10 +8,9 @@ import {
   setExchangeSuccessRates
 } from "../ExchangeRate/ducks/actions";
 import styles from "./Main.module.scss"
+import { ExchangeRateConnected } from "../ExchangeRate/ExchangeRate";
 
-const LazyExchangeRateConnected = React.lazy(() => import("../ExchangeRate/ExchangeRate"));
-
-
+export const EXCHANGE_RATE_REQUEST_TIMEOUT = 100;
 
 export interface MainDispatchProps {
   setExchangeAttemptRates: typeof setExchangeAttemptRates;
@@ -27,17 +26,17 @@ export const Main: React.FC<MainProps> = React.memo(({
 }) => {
   const requestExchangeRates = useCallback(debounce(async (date: string = "latest") => {
     setExchangeAttemptRates();
-
     try {
       const data = await (await fetch(`https://api.exchangeratesapi.io/${date}`)).json();
       if (data.error) {
         throw data.error;
       }
+
       setExchangeSuccessRates(data);
     } catch (error) {
       setExchangeFailedRates(error)
     }
-  }, 100, { trailing: false, leading: true }), [
+  }, EXCHANGE_RATE_REQUEST_TIMEOUT, { trailing: false, leading: true }), [
     setExchangeAttemptRates,
     setExchangeFailedRates,
     setExchangeSuccessRates,
@@ -46,9 +45,7 @@ export const Main: React.FC<MainProps> = React.memo(({
   return (
     <div className={styles.container}>
       <Button label="Load Data" onClick={() => requestExchangeRates()} />
-      <Suspense fallback={null}>
-        <LazyExchangeRateConnected />
-      </Suspense>
+      <ExchangeRateConnected />
     </div>
   );
 });

@@ -34,6 +34,15 @@ describe("ExchangeRate", () => {
         };
         expect(exchangeRatesReducer(state, setExchangeFailedRates("failed to set"))).toEqual(state);
       });
+      it("should fail to set exchange rates with Error class", () => {
+        const error = new Error("failed to set")
+        const state: ExchangeRatesState = {
+          error: "failed to set",
+          isLoading: false,
+          data: null,
+        };
+        expect(exchangeRatesReducer(state, setExchangeFailedRates(error))).toEqual(state);
+      });
       it("should successfully set exchange rates", () => {
         const payload: ExchangeRates = {
           base: "eur",

@@ -32,7 +32,7 @@ export function exchangeRatesReducer(
     case SET_EXCHANGE_RATES_FAILED: {
       return {
         ...state,
-        error: action.payload,
+        error: typeof action.payload === "string" ? action.payload : action.payload.message,
         isLoading: false,
       };
     }

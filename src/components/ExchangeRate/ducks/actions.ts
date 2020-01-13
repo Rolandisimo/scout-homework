@@ -14,9 +14,9 @@ export const setExchangeAttemptRates = (): SetExchangeRatesAttemptAction => ({
 
 export interface SetExchangeRatesFailedAction {
   type: typeof SET_EXCHANGE_RATES_FAILED;
-  payload: any;
+  payload: string | Error;
 }
-export const setExchangeFailedRates = (error: any): SetExchangeRatesFailedAction => ({
+export const setExchangeFailedRates = (error: string | Error): SetExchangeRatesFailedAction => ({
   type: SET_EXCHANGE_RATES_FAILED,
   payload: error,
 })

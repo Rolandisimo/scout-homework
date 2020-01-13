@@ -19,11 +19,14 @@ export type ExchangeRateProps = ExchangeRateStateProps;
 export const ExchangeRate: React.FC<ExchangeRateProps> = ({ exchangeRates }) => {
   const { data, error, isLoading } = exchangeRates;
 
-  return (
+  if (isLoading) {
+    return <Loader />
+  }
+
+  return <>
     <div className={styles.container}>
-      {data && <h2>{moment(data.date).format("DD/MM/YYYY")}</h2>}
-      {error && <Modal title="Requesting data has failed" body={error} />}
-      {!error && data && <>
+      {data && <>
+        <h2>{moment(data.date).format("DD/MM/YYYY")}</h2>
         <p>Base Currency: <strong>{data.base}</strong></p>
         {isLoading
           ? <Loader />
@@ -31,7 +34,9 @@ export const ExchangeRate: React.FC<ExchangeRateProps> = ({ exchangeRates }) => 
         }
       </>}
     </div>
-  );
+
+    {error && <Modal title="Requesting data has failed" body={error} />}
+  </>;
 }
 
 
