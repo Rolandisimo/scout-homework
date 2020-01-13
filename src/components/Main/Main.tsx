@@ -25,20 +25,18 @@ export const Main: React.FC<MainProps> = React.memo(({
   setExchangeFailedRates,
   setExchangeSuccessRates,
 }) => {
-  const requestExchangeRates = useCallback(debounce((date: string = "latest") => {
+  const requestExchangeRates = useCallback(debounce(async (date: string = "latest") => {
     setExchangeAttemptRates();
 
-    fetch(`https://api.exchangeratesapi.io/${date}`)
-      .then((response) => response.json())
-      .then((data) => {
-        if (data.error) {
-          throw data.error;
-        }
-        setExchangeSuccessRates(data);
-      })
-      .catch((error) => {
-        setExchangeFailedRates(error);
-      });
+    try {
+      const data = await (await fetch(`https://api.exchangeratesapi.io/${date}`)).json();
+      if (data.error) {
+        throw data.error;
+      }
+      setExchangeSuccessRates(data);
+    } catch (error) {
+      setExchangeFailedRates(error)
+    }
   }, 100, { trailing: false, leading: true }), [
     setExchangeAttemptRates,
     setExchangeFailedRates,

@@ -1,9 +1,15 @@
-import React from 'react';
-import { render } from '@testing-library/react';
-import { App } from './App';
+import React from "react";
+import { shallow } from "enzyme";
+import { App } from "./App";
+import { MainConnected } from "./components/Main/Main";
 
-test('renders learn react link', () => {
-  const { getByText } = render(<App />);
-  const linkElement = getByText(/learn react/i);
-  expect(linkElement).toBeInTheDocument();
+describe("App", () => {
+  it("renders app", () => {
+    const subject = shallow(<App />);
+    expect(subject).toMatchSnapshot();
+  });
+  it("renders MainConnected", () => {
+    const subject = shallow(<App />);
+    expect(subject.find(MainConnected)).toHaveLength(1);
+  });
 });

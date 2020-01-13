@@ -1,5 +1,7 @@
 import React from "react";
 import { connect } from "react-redux";
+import moment from "moment";
+
 import { ExchangeRatesState } from "./ducks/state";
 import { selectExchangeRates } from "./ducks/selectors";
 import { State } from "../../ducks/state";
@@ -8,7 +10,6 @@ import { ExchangeRateTable } from "./ExchangeRateTable";
 import { Modal } from "../Modal/Modal";
 
 import styles from "./ExchangeRate.module.scss";
-import moment from "moment";
 
 export interface ExchangeRateStateProps {
   exchangeRates: ExchangeRatesState;
@@ -24,12 +25,10 @@ export const ExchangeRate: React.FC<ExchangeRateProps> = ({ exchangeRates }) => 
       {error && <Modal title="Requesting data has failed" body={error} />}
       {!error && data && <>
         <p>Base Currency: <strong>{data.base}</strong></p>
-        <div className={styles.tableContainer}>
-          {isLoading
-            ? <Loader />
-            : <ExchangeRateTable rates={data.rates} />
-          }
-        </div>
+        {isLoading
+          ? <Loader />
+          : <ExchangeRateTable rates={data.rates} />
+        }
       </>}
     </div>
   );
