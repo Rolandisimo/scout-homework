@@ -1,6 +1,6 @@
 import React from "react";
 import { shallow } from "enzyme";
-import { Main, MainProps, EXCHANGE_RATE_REQUEST_TIMEOUT } from "./Main";
+import { Main, MainProps } from "./Main";
 import { Button } from "../Button/Button";
 import ExchangeRateConnected from "../ExchangeRate/ExchangeRate";
 
@@ -10,7 +10,6 @@ const setExchangeSuccessRatesMock = jest.fn();
 
 describe("Main", () => {
   beforeEach(() => {
-    jest.clearAllTimers();
     jest.resetAllMocks();
   });
 

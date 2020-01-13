@@ -2,7 +2,7 @@ import React from "react";
 import { ExchangeRates } from "./ducks/state";
 import styles from "./ExchangeRateTable.module.scss";
 
-export type ExchangeRateTableProps = {
+export interface ExchangeRateTableProps {
   rates: ExchangeRates["rates"]
 };
 

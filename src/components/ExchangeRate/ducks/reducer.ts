@@ -10,7 +10,6 @@ import {
   SET_EXCHANGE_RATES_SUCCESS,
 } from "./consts";
 
-
 export type ReducerActions =
   | SetExchangeRatesAttemptAction
   | SetExchangeRatesFailedAction

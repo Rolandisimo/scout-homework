@@ -14,6 +14,7 @@ export const Button: React.FC<ButtonProps> = ({ onClick, label, disabled }) => {
       className={cx(styles.container, styles.neutral, { disabled })}
       onClick={onClick}
       data-role="button"
+      disabled={disabled}
     >
       {label}
     </button>

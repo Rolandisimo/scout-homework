@@ -28,10 +28,7 @@ export const ExchangeRate: React.FC<ExchangeRateProps> = ({ exchangeRates }) => 
       {data && <>
         <h2>{moment(data.date).format("DD/MM/YYYY")}</h2>
         <p>Base Currency: <strong>{data.base}</strong></p>
-        {isLoading
-          ? <Loader />
-          : <ExchangeRateTable rates={data.rates} />
-        }
+        <ExchangeRateTable rates={data.rates} />
       </>}
     </div>
 
