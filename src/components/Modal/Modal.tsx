@@ -6,7 +6,7 @@ export interface ModalProps {
   body: string;
 }
 
-export const Modal: React.FC<ModalProps> = ({ title, body }) => {
+export const Modal: React.FC<ModalProps> = React.memo(({ title, body }) => {
   const [isVisible, setIsVisible] = useState(!!body);
 
   if (!isVisible) {
@@ -22,5 +22,5 @@ export const Modal: React.FC<ModalProps> = ({ title, body }) => {
       </div>
     </div>
   )
-}
-export default Modal;
+});
+

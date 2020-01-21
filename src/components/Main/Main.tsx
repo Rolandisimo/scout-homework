@@ -3,9 +3,9 @@ import { connect } from "react-redux";
 import debounce from "lodash.debounce";
 import { Button } from "../Button/Button";
 import {
-  setExchangeAttemptRates,
-  setExchangeFailedRates,
-  setExchangeSuccessRates
+  setExchangeAttemptRates as setExchangeAttemptRatesAction,
+  setExchangeFailedRates as setExchangeFailedRatesAction,
+  setExchangeSuccessRates as setExchangeSuccessRatesAction
 } from "../ExchangeRate/ducks/actions";
 import styles from "./Main.module.scss"
 import { ExchangeRateConnected } from "../ExchangeRate/ExchangeRate";
@@ -13,9 +13,9 @@ import { ExchangeRateConnected } from "../ExchangeRate/ExchangeRate";
 export const EXCHANGE_RATE_REQUEST_TIMEOUT = 100;
 
 export interface MainDispatchProps {
-  setExchangeAttemptRates: typeof setExchangeAttemptRates;
-  setExchangeFailedRates: typeof setExchangeFailedRates;
-  setExchangeSuccessRates: typeof setExchangeSuccessRates;
+  setExchangeAttemptRates: typeof setExchangeAttemptRatesAction;
+  setExchangeFailedRates: typeof setExchangeFailedRatesAction;
+  setExchangeSuccessRates: typeof setExchangeSuccessRatesAction;
 }
 export type MainProps = MainDispatchProps;
 
@@ -36,15 +36,13 @@ export const Main: React.FC<MainProps> = React.memo(({
     } catch (error) {
       setExchangeFailedRates(error)
     }
-  }, EXCHANGE_RATE_REQUEST_TIMEOUT, { trailing: false, leading: true }), [
-    setExchangeAttemptRates,
-    setExchangeFailedRates,
-    setExchangeSuccessRates,
-  ]);
+  }, EXCHANGE_RATE_REQUEST_TIMEOUT, { trailing: false, leading: true }), []);
+
+  const onClickCallback = useCallback(() => requestExchangeRates(), [requestExchangeRates]);
 
   return (
     <div className={styles.container}>
-      <Button label="Load Data" onClick={() => requestExchangeRates()} />
+      <Button label="Load Data" onClick={onClickCallback} />
       <ExchangeRateConnected />
     </div>
   );
@@ -52,9 +50,9 @@ export const Main: React.FC<MainProps> = React.memo(({
 
 
 export const mapDispatchToProps = {
-  setExchangeAttemptRates,
-  setExchangeFailedRates,
-  setExchangeSuccessRates,
+  setExchangeAttemptRates: setExchangeAttemptRatesAction,
+  setExchangeFailedRates: setExchangeFailedRatesAction,
+  setExchangeSuccessRates: setExchangeSuccessRatesAction,
 }
 
 export const MainConnected = connect(null, mapDispatchToProps)(Main);

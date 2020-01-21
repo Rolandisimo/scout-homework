@@ -6,7 +6,7 @@ export interface ExchangeRateTableProps {
   rates: ExchangeRates["rates"]
 };
 
-export const ExchangeRateTable: React.FC<ExchangeRateTableProps> = ({ rates }) => {
+export const ExchangeRateTable: React.FC<ExchangeRateTableProps> = React.memo(({ rates }) => {
   return (
     <div className={styles.container}>
       <table>
@@ -27,4 +27,4 @@ export const ExchangeRateTable: React.FC<ExchangeRateTableProps> = ({ rates }) =
       </table>
     </div>
   );
-}
+});

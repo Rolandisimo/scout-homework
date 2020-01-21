@@ -8,7 +8,7 @@ interface ButtonProps {
   disabled?: boolean;
 }
 
-export const Button: React.FC<ButtonProps> = ({ onClick, label, disabled }) => {
+export const Button: React.FC<ButtonProps> = React.memo(({ onClick, label, disabled }) => {
   return (
     <button
       className={cx(styles.container, styles.neutral, { disabled })}
@@ -19,4 +19,4 @@ export const Button: React.FC<ButtonProps> = ({ onClick, label, disabled }) => {
       {label}
     </button>
   );
-}
+});

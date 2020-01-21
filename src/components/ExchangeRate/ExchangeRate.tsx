@@ -42,4 +42,3 @@ export const mapStateToProps = (state: State): ExchangeRateStateProps => ({
 });
 
 export const ExchangeRateConnected = connect(mapStateToProps)(ExchangeRate);
-export default ExchangeRateConnected;
